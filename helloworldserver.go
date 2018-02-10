@@ -8,7 +8,7 @@ import (
 )
 
 func makeHandlerWithMessage(message string) func(http.ResponseWriter, *http.Request) {
-	return func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, _ *http.Request) {
 		w.Write([]byte(message))
 	}
 
