@@ -27,9 +27,11 @@ func getPortAndMessage(args []string) (port int, message string) {
 
 func makeHandlerWithMessage(message string) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, _ *http.Request) {
-		w.Write([]byte(message))
+		_, err := w.Write([]byte(message))
+		if err != nil {
+			fmt.Println("Something went wrong writing message response, err:", err)
+		}
 	}
-
 }
 
 func startServer(port int, message string) {
@@ -40,6 +42,7 @@ func startServer(port int, message string) {
 		panic(err)
 	}
 }
+
 func main() {
 	args := os.Args[1:]
 	port, message := getPortAndMessage(args)
